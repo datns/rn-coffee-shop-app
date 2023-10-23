@@ -12,19 +12,28 @@ export const SPACING = {
 export const BORDER_RADIUS = {
   radius_8: 8,
   radius_10: 10,
+  radius_15: 15,
 };
 
+export const COLORS = {
+  primaryRed: '#DC3535',
+  primaryOrange: '#D17842',
+  primaryBlack: '#0C0F14',
+  primaryWhite: '#FFFFFF',
+  darkGrey: '#252A32',
+  mediumGrey: '#52555A',
+  lightGrey: '#AEAEAE',
+  primaryBlackRGBA: 'rgba(12,15,20,0.5)',
+}
+
+export const FONT_SIZE = {
+  font_14: 14,
+  font_18: 18,
+  font_28: 28,
+}
+
 const theme = createTheme({
-  colors: {
-    primaryRed: '#DC3535',
-    primaryOrange: '#D17842',
-    primaryBlack: '#0C0F14',
-    primaryWhite: '#FFFFFF',
-    darkGrey: '#252A32',
-    mediumGrey: '#52555A',
-    lightGrey: '#AEAEAE',
-    primaryBlackRGBA: 'rgba(12,15,20,0.5)',
-  },
+  colors: COLORS,
   spacing: SPACING,
   fontSize: {
     size_8: 8,
@@ -41,9 +50,13 @@ const theme = createTheme({
   borderRadii: BORDER_RADIUS,
   textVariants: {
     text_1: {
-      fontSize: 28,
+      fontSize: FONT_SIZE.font_28,
       fontFamily: 'Poppins-SemiBold',
     },
+    text_4: {
+      fontSize: FONT_SIZE.font_14,
+      fontFamily: 'Poppins-SemiBold',
+    }
   },
 });
 
