@@ -1,14 +1,23 @@
 import React, {useState} from 'react';
-import {useWindowDimensions, View} from 'react-native';
+import {
+  FlatList,
+  ListRenderItem,
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+} from 'react-native';
 import {Route, TabView} from 'react-native-tab-view';
-import Container from '../../components/Container';
 import Text from '../../components/Text';
 import Box from '../../components/Box';
 import SearchBar from './components/SearchBar';
+import Card from '../../components/Card';
+import Header from '../../components/Header';
 import CustomTabBar from './components/CustomTabBar';
-import CategoryData from '../../data/CategoryData';
 import Tab from './components/Tab';
-import { SPACING } from "../../theme";
+import CategoryData from '../../data/CategoryData';
+import BeansData from '../../data/BeansData';
+import {COLORS, SPACING} from '../../theme';
+import {Coffee} from '../../../types';
 
 const ROUTES = CategoryData.map(item => ({
   key: item.code,
@@ -24,8 +33,16 @@ const HomeScreen = () => {
     return <Tab categoryCode={route.key} />;
   };
 
+  const renderBeanItem: ListRenderItem<Coffee> = ({item}) => {
+    return <Card data={item} />;
+  };
+
   return (
-    <Container>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      style={{backgroundColor: COLORS.primaryBlack}}
+      showsVerticalScrollIndicator={false}>
+      <Header />
       <Box paddingTop="spacing_30" flex={1}>
         <Text variant="text_1" color="primaryWhite" marginLeft={'spacing_30'}>
           {'Find the best\ncoffee for you'}
@@ -42,14 +59,47 @@ const HomeScreen = () => {
             index: tabIndex,
             routes: ROUTES,
           }}
+          style={styles.coffeeContainer}
           swipeEnabled={false}
           renderScene={renderScene}
           renderTabBar={props => <CustomTabBar {...props} />}
           initialLayout={{width: layout.width}}
         />
+
+        {/*Coffee beans section*/}
+        <Text
+          color="primaryWhite"
+          mt={'spacing_24'}
+          ml="spacing_30"
+          mb="spacing_24"
+          variant="text_16">
+          Coffee beans
+        </Text>
+        <FlatList
+          data={BeansData}
+          renderItem={renderBeanItem}
+          horizontal
+          contentContainerStyle={styles.beanContentContainer}
+        />
       </Box>
-    </Container>
+    </ScrollView>
   );
 };
 
 export default HomeScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    paddingBottom: 80 + SPACING.spacing_30,
+    paddingTop: 44,
+    backgroundColor: COLORS.primaryBlack,
+  },
+  coffeeContainer: {
+    flex: 0,
+    height: 322,
+  },
+  beanContentContainer: {
+    paddingHorizontal: SPACING.spacing_30,
+    gap: SPACING.spacing_24,
+  },
+});

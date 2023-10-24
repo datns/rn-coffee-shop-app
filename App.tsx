@@ -1,4 +1,5 @@
 import React from 'react';
+import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import TabNavigator from './src/navigators/TabNavigator';
 import {hide} from 'react-native-bootsplash';
@@ -9,6 +10,7 @@ const App = () => {
   return (
     <NavigationContainer onReady={() => hide({fade: true})}>
       <ThemeProvider theme={theme}>
+        <StatusBar barStyle="light-content" />
         <TabNavigator />
       </ThemeProvider>
     </NavigationContainer>

@@ -4,7 +4,7 @@ export interface Category {
 }
 
 export interface Price {
-  size: 'S' | 'M' | 'L',
+  size: string,
   price: string;
   currency: string;
 }
@@ -22,6 +22,6 @@ export interface Coffee {
   average_rating: number;
   ratings_count: string;
   favourite: boolean;
-  type: 'Coffee';
+  type: 'Coffee' | 'Bean';
   index: number;
 }
