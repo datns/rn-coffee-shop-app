@@ -9,7 +9,7 @@ const SearchBar: React.FC = () => {
   return (
     <Box
       backgroundColor="darkGrey"
-      borderRadius={'radius_15'}
+      borderRadius={'radius_16'}
       paddingVertical="spacing_12"
       flexDirection="row">
       <CustomIcon

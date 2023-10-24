@@ -7,6 +7,8 @@ import Box from '../../components/Box';
 import SearchBar from './components/SearchBar';
 import CustomTabBar from './components/CustomTabBar';
 import CategoryData from '../../data/CategoryData';
+import Tab from './components/Tab';
+import { SPACING } from "../../theme";
 
 const ROUTES = CategoryData.map(item => ({
   key: item.code,
@@ -19,11 +21,7 @@ const HomeScreen = () => {
   const [tabIndex, setTabIndex] = useState<number>(0);
 
   const renderScene = ({route}: {route: Route}) => {
-    return (
-      <View style={{backgroundColor: '#ff4081'}}>
-        <Text variant={'text_1'}>{route.title}</Text>
-      </View>
-    );
+    return <Tab categoryCode={route.key} />;
   };
 
   return (
@@ -44,7 +42,7 @@ const HomeScreen = () => {
             index: tabIndex,
             routes: ROUTES,
           }}
-          // sceneContainerStyle={{ paddingLeft: SPACING.spacing_30 }}
+          swipeEnabled={false}
           renderScene={renderScene}
           renderTabBar={props => <CustomTabBar {...props} />}
           initialLayout={{width: layout.width}}

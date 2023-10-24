@@ -1,5 +1,10 @@
 import React from 'react';
-import {StyleProp, StyleSheet, ViewStyle, Animated} from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  ViewStyle,
+  Animated,
+} from 'react-native';
 import {
   Route,
   TabBar,
@@ -7,6 +12,7 @@ import {
   SceneRendererProps,
 } from 'react-native-tab-view';
 import Text from '../../../components/Text';
+import Box from '../../../components/Box';
 import {COLORS, SPACING} from '../../../theme';
 
 type CustomTabBarProps = SceneRendererProps & {
@@ -64,16 +70,17 @@ const CustomTabBar: React.FC<CustomTabBarProps> = props => {
   };
 
   return (
-    <TabBar
-      {...props}
-      renderLabel={renderLabel}
-      tabStyle={styles.tabItem}
-      style={{backgroundColor: COLORS.primaryBlack}}
-      scrollEnabled
-      bounces={false}
-      renderIndicator={renderIndicator}
-      // contentContainerStyle={{ marginHorizontal: SPACING.spacing_30 }}
-    />
+    <Box paddingLeft="spacing_30">
+      <TabBar
+        {...props}
+        renderLabel={renderLabel}
+        tabStyle={styles.tabItem}
+        style={{backgroundColor: COLORS.primaryBlack}}
+        scrollEnabled
+        bounces={false}
+        renderIndicator={renderIndicator}
+      />
+    </Box>
   );
 };
 

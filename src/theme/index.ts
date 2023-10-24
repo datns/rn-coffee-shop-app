@@ -1,6 +1,7 @@
 import {createTheme} from '@shopify/restyle';
 
 export const SPACING = {
+  spacing_4: 4,
   spacing_8: 8,
   spacing_12: 12,
   spacing_18: 18,
@@ -12,7 +13,9 @@ export const SPACING = {
 export const BORDER_RADIUS = {
   radius_8: 8,
   radius_10: 10,
-  radius_15: 15,
+  radius_16: 26,
+  radius_20: 20,
+  radius_24: 24,
 };
 
 export const COLORS = {
@@ -23,14 +26,16 @@ export const COLORS = {
   darkGrey: '#252A32',
   mediumGrey: '#52555A',
   lightGrey: '#AEAEAE',
-  primaryBlackRGBA: 'rgba(12,15,20,0.5)',
-}
+  primaryBlackRGBA: 'rgba(12,15,20,0.6)',
+};
 
 export const FONT_SIZE = {
+  font_10: 10,
   font_14: 14,
+  font_16: 16,
   font_18: 18,
   font_28: 28,
-}
+};
 
 const theme = createTheme({
   colors: COLORS,
@@ -56,7 +61,25 @@ const theme = createTheme({
     text_4: {
       fontSize: FONT_SIZE.font_14,
       fontFamily: 'Poppins-SemiBold',
-    }
+    },
+    text_10: {
+      fontSize: FONT_SIZE.font_10,
+      fontFamily: 'Poppins-Regular',
+      color: 'primaryWhite',
+      lineHeight: 20,
+    },
+    text_16: {
+      fontSize: FONT_SIZE.font_16,
+      fontFamily: 'Poppins-Medium',
+      color: 'primaryWhite',
+    },
+    text_18: {
+      fontSize: 18,
+      fontFamily: 'Poppins-SemiBold',
+    },
+    defaults: {
+      fontFamily: 'Poppins-Regular',
+    },
   },
 });
 
