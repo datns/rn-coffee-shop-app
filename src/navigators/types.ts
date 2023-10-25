@@ -4,3 +4,8 @@ export type TabParamList = {
   Favorites: undefined;
   History: undefined;
 }
+
+export type MainParamList = {
+  Tab: TabParamList;
+  Details: { id: string };
+}

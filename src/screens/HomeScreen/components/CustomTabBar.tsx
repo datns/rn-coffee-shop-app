@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  StyleProp,
-  StyleSheet,
-  ViewStyle,
-  Animated,
-} from 'react-native';
+import {StyleProp, StyleSheet, ViewStyle, Animated} from 'react-native';
 import {
   Route,
   TabBar,
@@ -24,7 +19,7 @@ const CustomTabBar: React.FC<CustomTabBarProps> = props => {
 
   const renderLabel = ({route, focused}: {route: Route; focused: boolean}) => {
     return (
-      <Text variant="text_4" color={focused ? 'primaryOrange' : 'mediumGrey'}>
+      <Text variant="text_14" color={focused ? 'primaryOrange' : 'mediumGrey'}>
         {route.title}
       </Text>
     );

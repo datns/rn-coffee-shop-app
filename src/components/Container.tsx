@@ -7,7 +7,7 @@ import theme from '../theme';
 const Container: React.FC<PropsWithChildren> = ({children}) => {
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
-      {/*<Header />*/}
+      <Header />
       {children}
     </SafeAreaView>
   );

@@ -5,6 +5,7 @@ export const SPACING = {
   spacing_8: 8,
   spacing_12: 12,
   spacing_18: 18,
+  spacing_20: 20,
   spacing_24: 24,
   spacing_30: 30,
   spacing_36: 36,
@@ -31,9 +32,11 @@ export const COLORS = {
 
 export const FONT_SIZE = {
   font_10: 10,
+  font_12: 12,
   font_14: 14,
   font_16: 16,
   font_18: 18,
+  font_20: 20,
   font_28: 28,
 };
 
@@ -58,7 +61,7 @@ const theme = createTheme({
       fontSize: FONT_SIZE.font_28,
       fontFamily: 'Poppins-SemiBold',
     },
-    text_4: {
+    text_14: {
       fontSize: FONT_SIZE.font_14,
       fontFamily: 'Poppins-SemiBold',
     },
@@ -70,15 +73,22 @@ const theme = createTheme({
     },
     text_16: {
       fontSize: FONT_SIZE.font_16,
-      fontFamily: 'Poppins-Medium',
+      fontFamily: 'Poppins-SemiBold',
       color: 'primaryWhite',
     },
     text_18: {
-      fontSize: 18,
+      fontSize: FONT_SIZE.font_18,
+      fontFamily: 'Poppins-SemiBold',
+    },
+    text_20: {
+      fontSize: FONT_SIZE.font_20,
       fontFamily: 'Poppins-SemiBold',
     },
     defaults: {
       fontFamily: 'Poppins-Regular',
+      color: 'primaryWhite',
+      fontSize: FONT_SIZE.font_12,
+      lineHeight: 20,
     },
   },
 });

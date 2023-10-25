@@ -18,15 +18,17 @@ import CategoryData from '../../data/CategoryData';
 import BeansData from '../../data/BeansData';
 import {COLORS, SPACING} from '../../theme';
 import {Coffee} from '../../../types';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {MainParamList} from '../../navigators/types';
+import Animated from 'react-native-reanimated';
 
 const ROUTES = CategoryData.map(item => ({
   key: item.code,
   title: item.name,
 }));
 
-const HomeScreen = () => {
+const HomeScreen: React.FC = () => {
   const layout = useWindowDimensions();
-
   const [tabIndex, setTabIndex] = useState<number>(0);
 
   const renderScene = ({route}: {route: Route}) => {
@@ -43,6 +45,10 @@ const HomeScreen = () => {
       style={{backgroundColor: COLORS.primaryBlack}}
       showsVerticalScrollIndicator={false}>
       <Header />
+      <Animated.View
+        style={{width: 150, height: 150, backgroundColor: 'green'}}
+        sharedTransitionTag="sharedTag"
+      />
       <Box paddingTop="spacing_30" flex={1}>
         <Text variant="text_1" color="primaryWhite" marginLeft={'spacing_30'}>
           {'Find the best\ncoffee for you'}
