@@ -45,10 +45,6 @@ const HomeScreen: React.FC = () => {
       style={{backgroundColor: COLORS.primaryBlack}}
       showsVerticalScrollIndicator={false}>
       <Header />
-      <Animated.View
-        style={{width: 150, height: 150, backgroundColor: 'green'}}
-        sharedTransitionTag="sharedTag"
-      />
       <Box paddingTop="spacing_30" flex={1}>
         <Text variant="text_1" color="primaryWhite" marginLeft={'spacing_30'}>
           {'Find the best\ncoffee for you'}

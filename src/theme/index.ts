@@ -23,6 +23,7 @@ export const COLORS = {
   primaryRed: '#DC3535',
   primaryOrange: '#D17842',
   primaryBlack: '#0C0F14',
+  secondBlack: '#141921',
   primaryWhite: '#FFFFFF',
   darkGrey: '#252A32',
   mediumGrey: '#52555A',
@@ -88,7 +89,6 @@ const theme = createTheme({
       fontFamily: 'Poppins-Regular',
       color: 'primaryWhite',
       fontSize: FONT_SIZE.font_12,
-      lineHeight: 20,
     },
   },
 });
