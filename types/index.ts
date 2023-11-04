@@ -4,15 +4,15 @@ export interface Category {
 }
 
 export interface Price {
-  size: string,
+  size: string;
   price: string;
   currency: string;
 }
 
 export interface Coffee {
   id: string;
-  name: Category['name'],
-  description: string,
+  name: Category['name'];
+  description: string;
   roasted: string;
   imagelink_square: number;
   imagelink_portrait: number;

@@ -41,6 +41,13 @@ export const FONT_SIZE = {
   font_28: 28,
 };
 
+export const FONT_FAMILY = {
+  light: 'Poppins-Light',
+  regular: 'Poppins-Regular',
+  semiBold: 'Poppins-SemiBold',
+  bold: 'Poppins-Bold',
+};
+
 const theme = createTheme({
   colors: COLORS,
   spacing: SPACING,

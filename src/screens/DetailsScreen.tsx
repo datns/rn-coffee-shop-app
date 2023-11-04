@@ -1,27 +1,37 @@
 import React, {useState} from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
-import Text from '../components/Text';
+import {
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {MainParamList} from '../navigators/types';
-import CoffeeData from '../data/CoffeeData';
 import Animated from 'react-native-reanimated';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+
 import Box from '../components/Box';
 import GradientIcon from '../components/GradientIcon';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {BORDER_RADIUS, COLORS, FONT_SIZE, SPACING} from '../theme';
+import Text from '../components/Text';
 import CustomIcon from '../components/CustomIcon';
+import AddToCart from '../components/AddToCart';
+
+import useStore from '../store';
+import {MainParamList} from '../navigators/types';
 import {Price} from '../../types';
-import Button from '../components/Button';
+import {BORDER_RADIUS, COLORS, FONT_SIZE, SPACING} from '../theme';
 
 type DetailsScreenProps = NativeStackScreenProps<MainParamList, 'Details'>;
 
 const DetailsScreen: React.FC<DetailsScreenProps> = ({route, navigation}) => {
   const inset = useSafeAreaInsets();
-  const {id} = route.params;
-  const selectedItem = CoffeeData.find(item => item.id === id);
+  const {id, type} = route.params;
+  const {coffeeList, beanList} = useStore();
+  const selectedList = type === 'Coffee' ? coffeeList : beanList;
+  const selectedItem = selectedList.find(item => item.id === id);
   const [selectedPrice, setSelectedPrice] = useState<Price | undefined>(
     selectedItem?.prices[0],
   );
+
   if (!selectedItem) {
     return null;
   }
@@ -72,13 +82,21 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({route, navigation}) => {
               width={56}
               height={56}
               marginRight={'spacing_20'}>
-              <CustomIcon name="beans" color={COLORS.primaryOrange} size={24} />
+              <CustomIcon
+                name={type === 'Coffee' ? 'beans' : 'bean'}
+                color={COLORS.primaryOrange}
+                size={24}
+              />
               <Text fontSize={10} fontFamily="Poppins-Medium" color="lightGrey">
                 {selectedItem.type}
               </Text>
             </Box>
             <Box style={styles.properContainer} width={56} height={56}>
-              <CustomIcon name="drop" color={COLORS.primaryOrange} size={20} />
+              <CustomIcon
+                name={type === 'Coffee' ? 'drop' : 'location'}
+                color={COLORS.primaryOrange}
+                size={20}
+              />
               <Text
                 fontSize={10}
                 fontFamily="Poppins-Medium"
@@ -143,33 +161,6 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({route, navigation}) => {
     );
   };
 
-  const renderAddToCartSection = () => {
-    return (
-      <Box
-        mt="spacing_30"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="flex-end"
-        gap="spacing_36">
-        <Box>
-          <Text
-            color="lightGrey"
-            fontFamily="Poppins-Medium"
-            textAlign="center">
-            Price
-          </Text>
-          <Text variant="text_20" color="primaryOrange">
-            ${' '}
-            <Text variant="text_20" color="primaryWhite">
-              {selectedPrice?.price}
-            </Text>
-          </Text>
-        </Box>
-        <Button label="Add to cart" onPress={() => {}} />
-      </Box>
-    );
-  };
-
   return (
     <ScrollView
       style={{backgroundColor: COLORS.primaryBlack}}
@@ -179,7 +170,8 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({route, navigation}) => {
       <Box>
         <Animated.Image
           source={selectedItem?.imagelink_portrait}
-          sharedTransitionTag={`image${id}`}
+          style={styles.imageBackground}
+          resizeMode="cover"
         />
         <Box
           position="absolute"
@@ -209,7 +201,7 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({route, navigation}) => {
           {selectedItem.description}
         </Text>
         {renderSizeSection()}
-        {renderAddToCartSection()}
+        <AddToCart price={selectedPrice?.price || '0'} />
       </Box>
     </ScrollView>
   );
@@ -219,8 +211,9 @@ export default DetailsScreen;
 
 const styles = StyleSheet.create({
   imageBackground: {
-    width: '100%',
+    width: Dimensions.get('window').width,
     aspectRatio: 20 / 25,
+    height: 'auto',
   },
   properContainer: {
     backgroundColor: COLORS.secondBlack,

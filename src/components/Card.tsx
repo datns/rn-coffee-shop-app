@@ -31,7 +31,7 @@ export const CARD_WIDTH = 150;
 const Card: React.FC<CardProps> = ({data}) => {
   const navigation = useNavigation<NavigationProps>();
   const handlePress = () => {
-    navigation.navigate('Details', {id: data.id});
+    navigation.navigate('Details', {id: data.id, type: data.type});
   };
 
   return (
