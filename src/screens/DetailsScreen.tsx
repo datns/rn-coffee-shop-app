@@ -25,12 +25,14 @@ type DetailsScreenProps = NativeStackScreenProps<MainParamList, 'Details'>;
 const DetailsScreen: React.FC<DetailsScreenProps> = ({route, navigation}) => {
   const inset = useSafeAreaInsets();
   const {id, type} = route.params;
-  const {coffeeList, beanList} = useStore();
+  const {coffeeList, beanList, cart} = useStore();
   const selectedList = type === 'Coffee' ? coffeeList : beanList;
   const selectedItem = selectedList.find(item => item.id === id);
   const [selectedPrice, setSelectedPrice] = useState<Price | undefined>(
     selectedItem?.prices[0],
   );
+
+  console.log('cart', cart);
 
   if (!selectedItem) {
     return null;
@@ -201,7 +203,9 @@ const DetailsScreen: React.FC<DetailsScreenProps> = ({route, navigation}) => {
           {selectedItem.description}
         </Text>
         {renderSizeSection()}
-        <AddToCart price={selectedPrice?.price || '0'} />
+        {selectedPrice && (
+          <AddToCart price={selectedPrice} item={selectedItem} />
+        )}
       </Box>
     </ScrollView>
   );

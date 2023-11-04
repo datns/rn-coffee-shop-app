@@ -25,3 +25,14 @@ export interface Coffee {
   type: 'Coffee' | 'Bean';
   index: number;
 }
+
+export interface CartItem {
+  order: Record<
+    string,
+    {
+      quantity: number;
+      price: string;
+    }
+  >;
+  item: Coffee;
+}
