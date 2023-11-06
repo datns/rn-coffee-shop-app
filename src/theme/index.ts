@@ -4,6 +4,7 @@ export const SPACING = {
   spacing_4: 4,
   spacing_8: 8,
   spacing_12: 12,
+  spacing_16: 16,
   spacing_18: 18,
   spacing_20: 20,
   spacing_24: 24,
@@ -44,6 +45,7 @@ export const FONT_SIZE = {
 export const FONT_FAMILY = {
   light: 'Poppins-Light',
   regular: 'Poppins-Regular',
+  medium: 'Poppins-Medium',
   semiBold: 'Poppins-SemiBold',
   bold: 'Poppins-Bold',
 };

@@ -1,13 +1,16 @@
 import React, {PropsWithChildren} from 'react';
+import {StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from './Header';
-import {StyleSheet} from 'react-native';
-import theme from '../theme';
+import theme, {SPACING} from '../theme';
 
-const Container: React.FC<PropsWithChildren> = ({children}) => {
+interface ContainerProps extends PropsWithChildren {
+  screenName?: string;
+}
+const Container: React.FC<ContainerProps> = ({screenName, children}) => {
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
-      <Header />
+      <Header screenName={screenName} />
       {children}
     </SafeAreaView>
   );
@@ -18,6 +21,7 @@ export default Container;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.primaryBlack,
+    paddingTop: SPACING.spacing_12,
     flex: 1,
   },
 });

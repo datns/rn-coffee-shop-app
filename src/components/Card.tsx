@@ -3,12 +3,7 @@ import {Coffee} from '../../types';
 import Box from './Box';
 import LinearGradient from 'react-native-linear-gradient';
 import Text from './Text';
-import {
-  ImageBackground,
-  Pressable,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {Pressable, StyleSheet} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {BORDER_RADIUS, COLORS, SPACING} from '../theme';
 import CustomIcon from './CustomIcon';
@@ -17,6 +12,8 @@ import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
 import {MainParamList, TabParamList} from '../navigators/types';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import ButtonSquare from './ButtonSquare';
+import useStore from '../store';
 
 type NavigationProps = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, 'Home'>,
@@ -30,8 +27,17 @@ interface CardProps {
 export const CARD_WIDTH = 150;
 const Card: React.FC<CardProps> = ({data}) => {
   const navigation = useNavigation<NavigationProps>();
+  const {addCart} = useStore();
+
   const handlePress = () => {
     navigation.navigate('Details', {id: data.id, type: data.type});
+  };
+
+  const handleAddToCart = () => {
+    addCart({
+      item: data,
+      price: data.prices[1],
+    });
   };
 
   return (
@@ -85,17 +91,7 @@ const Card: React.FC<CardProps> = ({data}) => {
               {data.prices[1].price}
             </Text>
           </Text>
-          <TouchableOpacity onPress={() => console.log('press')}>
-            <Box
-              backgroundColor="primaryOrange"
-              width={SPACING.spacing_30}
-              height={SPACING.spacing_30}
-              borderRadius="radius_8"
-              justifyContent="center"
-              alignItems="center">
-              <CustomIcon name="plus" size={10} color={COLORS.primaryWhite} />
-            </Box>
-          </TouchableOpacity>
+          <ButtonSquare iconName="plus" onPress={handleAddToCart} />
         </Box>
       </LinearGradient>
     </Pressable>

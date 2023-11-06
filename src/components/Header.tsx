@@ -4,16 +4,22 @@ import Box from './Box';
 import CustomIcon from './CustomIcon';
 import {Image, StyleSheet} from 'react-native';
 import {useTheme} from '@shopify/restyle';
-import {BORDER_RADIUS, SPACING, Theme} from '../theme';
+import {BORDER_RADIUS, FONT_FAMILY, FONT_SIZE, SPACING, Theme} from '../theme';
+import Text from './Text';
 
-const Header = () => {
+interface HeaderProps {
+  screenName?: string;
+}
+const Header: React.FC<HeaderProps> = ({screenName}) => {
   const theme = useTheme<Theme>();
   const {colors, fontSize} = theme;
   return (
     <Box
       flexDirection={'row'}
       justifyContent="space-between"
-      paddingHorizontal="spacing_24">
+      paddingHorizontal="spacing_30"
+      alignItems="center"
+    >
       <LinearGradient
         colors={[colors.primaryBlack, colors.darkGrey]}
         style={styles.gradientBg}
@@ -25,6 +31,14 @@ const Header = () => {
           color={theme.colors.mediumGrey}
         />
       </LinearGradient>
+      {screenName && (
+        <Text
+          color="primaryWhite"
+          fontFamily={FONT_FAMILY.semiBold}
+          fontSize={FONT_SIZE.font_20}>
+          {screenName}
+        </Text>
+      )}
       <Box
         width={30}
         height={30}
