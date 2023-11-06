@@ -5,8 +5,8 @@ import useStore from '../store';
 import {FlatList, ListRenderItem, StyleSheet} from 'react-native';
 import {CartItem} from '../../types';
 import {SPACING} from '../theme';
-import Box from '../components/Box';
 import Footer from '../components/Footer';
+import EmptyList from '../components/EmptyList';
 
 const CartScreen = () => {
   const {cart} = useStore();
@@ -29,21 +29,24 @@ const CartScreen = () => {
 
   return (
     <Container screenName={'Cart'}>
-      <Box height={SPACING.spacing_12} />
-      <FlatList
-        data={Object.values(cart)}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        contentContainerStyle={styles.content}
-        ListFooterComponent={
-          <Footer
-            label="Total Price"
-            buttonLabel="Pay"
-            onPress={() => {}}
-            price={totalPrice.toFixed(2).toString()}
-          />
-        }
-      />
+      {Object.values(cart).length === 0 ? (
+        <EmptyList title="Cart is empty" />
+      ) : (
+        <FlatList
+          data={Object.values(cart)}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          contentContainerStyle={styles.content}
+          ListFooterComponent={
+            <Footer
+              label="Total Price"
+              buttonLabel="Pay"
+              onPress={() => {}}
+              price={totalPrice.toFixed(2).toString()}
+            />
+          }
+        />
+      )}
     </Container>
   );
 };
@@ -52,6 +55,7 @@ export default CartScreen;
 
 const styles = StyleSheet.create({
   content: {
+    paddingTop: SPACING.spacing_12,
     paddingHorizontal: SPACING.spacing_30,
     paddingBottom: SPACING.spacing_20 + 80,
     gap: SPACING.spacing_16,

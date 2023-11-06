@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {TabParamList} from './types';
 import HomeScreen from '../screens/HomeScreen';
@@ -8,7 +8,8 @@ import HistoryScreen from '../screens/HistoryScreen';
 import CustomIcon from '../components/CustomIcon';
 import {BlurView} from '@react-native-community/blur';
 import {StyleSheet} from 'react-native';
-import theme from '../theme';
+import theme, {COLORS, FONT_SIZE} from '../theme';
+import useStore from '../store';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
@@ -23,6 +24,17 @@ const TabBarIcon = (props: {name: string; focused: boolean}) => {
 };
 
 const TabNavigator = () => {
+  const {cart} = useStore();
+
+  const quantity = useMemo(() => {
+    return Object.values(cart).reduce((acc, item) => {
+      const sum = Object.values(item.order).reduce((accOrder, itemOrder) => {
+        return accOrder + itemOrder.quantity;
+      }, 0);
+      return sum + acc;
+    }, 0);
+  }, [cart]);
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -50,6 +62,11 @@ const TabNavigator = () => {
           tabBarIcon: ({focused}) => (
             <TabBarIcon name="cart" focused={focused} />
           ),
+          tabBarBadge: quantity,
+          tabBarBadgeStyle: {
+            backgroundColor: COLORS.primaryRed,
+            fontSize: FONT_SIZE.font_14,
+          },
         }}
       />
       <Tab.Screen
