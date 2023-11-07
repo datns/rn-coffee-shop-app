@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {MainParamList} from './types';
 import TabNavigator from './TabNavigator';
 import DetailsScreen from '../screens/DetailsScreen';
+import PaymentScreen from '../screens/PaymentScreen';
 
 const Stack = createNativeStackNavigator<MainParamList>();
 const MainNavigator = () => {
@@ -17,6 +18,7 @@ const MainNavigator = () => {
           gestureEnabled: true,
         }}
       />
+      <Stack.Screen name="Payment" component={PaymentScreen} />
     </Stack.Navigator>
   );
 };

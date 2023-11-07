@@ -10,4 +10,5 @@ export type TabParamList = {
 export type MainParamList = {
   Tab: TabParamList;
   Details: {id: string; type: Coffee['type']};
+  Payment: {price: string};
 };

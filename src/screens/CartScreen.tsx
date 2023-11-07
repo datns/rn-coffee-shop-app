@@ -7,8 +7,18 @@ import {CartItem} from '../../types';
 import {SPACING} from '../theme';
 import Footer from '../components/Footer';
 import EmptyList from '../components/EmptyList';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {MainParamList, TabParamList} from '../navigators/types';
+import {CompositeScreenProps} from '@react-navigation/native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import Header from '../components/Header';
 
-const CartScreen = () => {
+type CartScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<TabParamList, 'Cart'>,
+  NativeStackScreenProps<MainParamList>
+>;
+
+const CartScreen: React.FC<CartScreenProps> = ({navigation}) => {
   const {cart} = useStore();
   const totalPrice = useMemo(() => {
     const cartArray = Object.values(cart);
@@ -28,7 +38,8 @@ const CartScreen = () => {
   const keyExtractor = (item: CartItem, _: number) => item.item.id;
 
   return (
-    <Container screenName={'Cart'}>
+    <Container>
+      <Header screenName={'Cart'} />
       {Object.values(cart).length === 0 ? (
         <EmptyList title="Cart is empty" />
       ) : (
@@ -41,7 +52,11 @@ const CartScreen = () => {
             <Footer
               label="Total Price"
               buttonLabel="Pay"
-              onPress={() => {}}
+              onPress={() =>
+                navigation.navigate('Payment', {
+                  price: totalPrice.toFixed(2).toString(),
+                })
+              }
               price={totalPrice.toFixed(2).toString()}
             />
           }

@@ -13,6 +13,8 @@ interface CardCartItemProps {
   data: CartItem;
 }
 
+const AnimatedLinear = Animated.createAnimatedComponent(LinearGradient);
+
 const CardCartItem: React.FC<CardCartItemProps> = ({data}) => {
   const {addCart, removeCart} = useStore();
 
@@ -215,17 +217,17 @@ const CardCartItem: React.FC<CardCartItemProps> = ({data}) => {
   };
 
   return (
-    <Animated.View entering={FadeInRight} exiting={FadeOutLeft}>
-      <LinearGradient
-        colors={[COLORS.primaryBlack, COLORS.darkGrey]}
-        end={{x: 0, y: 0}}
-        start={{x: 1, y: 1}}
-        style={styles.container}>
-        {Object.keys(data.order).length > 1
-          ? renderMultipleSize()
-          : renderSingleSize()}
-      </LinearGradient>
-    </Animated.View>
+    <AnimatedLinear
+      entering={FadeInRight}
+      exiting={FadeOutLeft}
+      colors={[COLORS.primaryBlack, COLORS.darkGrey]}
+      end={{x: 0, y: 0}}
+      start={{x: 1, y: 1}}
+      style={styles.container}>
+      {Object.keys(data.order).length > 1
+        ? renderMultipleSize()
+        : renderSingleSize()}
+    </AnimatedLinear>
   );
 };
 
