@@ -31,4 +31,4 @@ const CategoryData: Category[] = [
   },
 ];
 
-export default CategoryData
+export default CategoryData;

@@ -10,9 +10,10 @@ type StoreState = {
   coffeeList: Coffee[];
   beanList: Coffee[];
   cart: Record<string, CartItem>;
-  favouritesList: Record<string, Coffee>;
+  favoritesList: Record<string, Coffee>;
   addCart: (payload: {item: Coffee; price: Price}) => void;
   removeCart: (payload: {id: string; size: string}) => void;
+  toggleFavorite: (payload: Coffee) => void;
 };
 
 const storage = new MMKV();
@@ -36,7 +37,7 @@ const useStore = create<StoreState>()(
       coffeeList: CoffeeData,
       beanList: BeansData,
       cart: {},
-      favouritesList: {},
+      favoritesList: {},
       addCart: payload =>
         set(
           produce((state: StoreState) => {
@@ -85,6 +86,16 @@ const useStore = create<StoreState>()(
               if (Object.keys(state.cart[id].order).length === 0) {
                 delete state.cart[id];
               }
+            }
+          }),
+        ),
+      toggleFavorite: payload =>
+        set(
+          produce((state: StoreState) => {
+            if (!state.favoritesList[payload.id]) {
+              state.favoritesList[payload.id] = payload;
+            } else {
+              delete state.favoritesList[payload.id];
             }
           }),
         ),

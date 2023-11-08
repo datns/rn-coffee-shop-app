@@ -18,9 +18,6 @@ import CategoryData from '../../data/CategoryData';
 import BeansData from '../../data/BeansData';
 import {COLORS, SPACING} from '../../theme';
 import {Coffee} from '../../../types';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {MainParamList} from '../../navigators/types';
-import Animated from 'react-native-reanimated';
 
 const ROUTES = CategoryData.map(item => ({
   key: item.code,

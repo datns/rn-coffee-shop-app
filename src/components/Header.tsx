@@ -18,8 +18,7 @@ const Header: React.FC<HeaderProps> = ({screenName}) => {
       flexDirection={'row'}
       justifyContent="space-between"
       paddingHorizontal="spacing_30"
-      alignItems="center"
-    >
+      alignItems="center">
       <LinearGradient
         colors={[colors.primaryBlack, colors.darkGrey]}
         style={styles.gradientBg}
