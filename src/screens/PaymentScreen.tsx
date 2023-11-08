@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Image, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {format} from 'date-fns';
 
 import Container from '../components/Container';
 import Text from '../components/Text';
@@ -10,10 +11,17 @@ import Box from '../components/Box';
 import CustomIcon from '../components/CustomIcon';
 import Footer from '../components/Footer';
 
-import {MainParamList} from '../navigators/types';
+import {MainParamList, TabParamList} from '../navigators/types';
 import {BORDER_RADIUS, COLORS, FONT_FAMILY, FONT_SIZE, SPACING} from '../theme';
+import useStore from '../store';
+import LottieView from 'lottie-react-native';
+import {CompositeScreenProps} from '@react-navigation/native';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 
-type PaymentScreenProps = NativeStackScreenProps<MainParamList, 'Payment'>;
+type PaymentScreenProps = CompositeScreenProps<
+  NativeStackScreenProps<MainParamList, 'Payment'>,
+  BottomTabScreenProps<TabParamList>
+>;
 
 const E_WALLET = [
   {
@@ -30,9 +38,24 @@ const E_WALLET = [
   },
 ];
 
-const PaymentScreen: React.FC<PaymentScreenProps> = ({route}) => {
+const PaymentScreen: React.FC<PaymentScreenProps> = ({route, navigation}) => {
   const {price} = route.params;
+  const {cart, addOrder} = useStore();
   const [method, setMethod] = useState<string>('Credit Card');
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const onPay = () => {
+    setLoading(true);
+    addOrder({
+      cart,
+      total: price,
+      date: format(new Date(), 'Do LLLL yyyy HH:mm'),
+    });
+    setTimeout(() => {
+      setLoading(false);
+      navigation.navigate('History');
+    }, 3000);
+  };
 
   const renderCreditCard = () => {
     return (
@@ -116,14 +139,17 @@ const PaymentScreen: React.FC<PaymentScreenProps> = ({route}) => {
           flexDirection="row"
           justifyContent="space-between"
           alignItems="center">
-          <GradientIcon name="back" />
+          <GradientIcon name="back" onPress={navigation.goBack} />
           <Text fontFamily={FONT_FAMILY.semiBold} fontSize={FONT_SIZE.font_20}>
             Payment
           </Text>
           <Box width={30} aspectRatio={1} />
         </Box>
         <ScrollView
-          contentContainerStyle={{paddingTop: SPACING.spacing_24, flexGrow: 1}}>
+          contentContainerStyle={{
+            paddingTop: SPACING.spacing_24,
+            flexGrow: 1,
+          }}>
           {renderCreditCard()}
           <TouchableOpacity onPress={() => setMethod('Wallet')}>
             <Box
@@ -191,9 +217,19 @@ const PaymentScreen: React.FC<PaymentScreenProps> = ({route}) => {
           label={'Price'}
           buttonLabel={`Pay from ${method}`}
           price={price}
-          onPress={() => {}}
+          onPress={onPay}
         />
       </Box>
+      {loading && (
+        <Box style={styles.animation}>
+          <LottieView
+            source={require('../assets/lotties/successful.json')}
+            style={{flex: 1}}
+            autoPlay
+            loop={false}
+          />
+        </Box>
+      )}
     </Container>
   );
 };
@@ -227,5 +263,9 @@ const styles = StyleSheet.create({
   eWalletImage: {
     width: SPACING.spacing_30,
     height: SPACING.spacing_30,
+  },
+  animation: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: COLORS.primaryBlack,
   },
 });

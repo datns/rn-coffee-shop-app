@@ -43,7 +43,7 @@ const TabNavigator = () => {
         tabBarStyle: styles.tabBarStyle,
         headerShown: false,
         tabBarBackground: () => (
-          <BlurView overlayColor="" blurAmount={15} style={styles.blurView} />
+          <BlurView overlayColor="" blurAmount={5} style={styles.blurView} />
         ),
       }}>
       <Tab.Screen

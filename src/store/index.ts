@@ -1,4 +1,4 @@
-import {CartItem, Coffee, Price} from '../../types';
+import {CartItem, Coffee, Order, Price} from '../../types';
 import {create} from 'zustand';
 import CoffeeData from '../data/CoffeeData';
 import BeansData from '../data/BeansData';
@@ -11,9 +11,11 @@ type StoreState = {
   beanList: Coffee[];
   cart: Record<string, CartItem>;
   favoritesList: Record<string, Coffee>;
+  ordersList: Order[];
   addCart: (payload: {item: Coffee; price: Price}) => void;
   removeCart: (payload: {id: string; size: string}) => void;
   toggleFavorite: (payload: Coffee) => void;
+  addOrder: (payload: Order) => void;
 };
 
 const storage = new MMKV();
@@ -38,6 +40,7 @@ const useStore = create<StoreState>()(
       beanList: BeansData,
       cart: {},
       favoritesList: {},
+      ordersList: [],
       addCart: payload =>
         set(
           produce((state: StoreState) => {
@@ -97,6 +100,13 @@ const useStore = create<StoreState>()(
             } else {
               delete state.favoritesList[payload.id];
             }
+          }),
+        ),
+      addOrder: payload =>
+        set(
+          produce((state: StoreState) => {
+            state.ordersList.unshift(payload);
+            state.cart = {};
           }),
         ),
     }),

@@ -36,3 +36,9 @@ export interface CartItem {
   >;
   item: Coffee;
 }
+
+export interface Order {
+  cart: Record<string, CartItem>;
+  total: string;
+  date: string;
+}
