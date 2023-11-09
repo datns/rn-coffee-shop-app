@@ -62,7 +62,7 @@ const TabNavigator = () => {
           tabBarIcon: ({focused}) => (
             <TabBarIcon name="cart" focused={focused} />
           ),
-          tabBarBadge: quantity,
+          tabBarBadge: quantity > 0 ? quantity : undefined,
           tabBarBadgeStyle: {
             backgroundColor: COLORS.primaryRed,
             fontSize: FONT_SIZE.font_14,

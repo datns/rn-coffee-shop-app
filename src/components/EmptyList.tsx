@@ -1,5 +1,5 @@
-import {StyleSheet, View} from 'react-native';
 import React from 'react';
+import {StyleSheet, View} from 'react-native';
 import LottieView from 'lottie-react-native';
 import Text from './Text';
 import {FONT_FAMILY, FONT_SIZE} from '../theme';
