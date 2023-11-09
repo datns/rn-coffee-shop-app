@@ -49,7 +49,7 @@ const PaymentScreen: React.FC<PaymentScreenProps> = ({route, navigation}) => {
     addOrder({
       cart,
       total: price,
-      date: format(new Date(), 'Do LLLL yyyy HH:mm'),
+      date: format(new Date(), 'do LLLL yyyy HH:mm'),
     });
     setTimeout(() => {
       setLoading(false);
